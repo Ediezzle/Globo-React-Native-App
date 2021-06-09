@@ -1,21 +1,55 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, Alert} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class Header extends React.Component {
     constructor(props){
         super(props);
         //manipulating state like this without using setState should only be done in the constructor
         console.log('constructor');
-        this.state = {isLoggedIn: false};
+        this.state = {
+            isLoggedIn: false,
+            isLoggedIn: false,
+            loggedInUser: false
+        };
     }
 
     toggleUser = ()=>{
-        this.setState(prevState=>{
-            return {isLoggedIn: !prevState.isLoggedIn};
+        if(this.state.isLoggedIn){
+            AsyncStorage.setItem('userLoggedIn', 'none', (err, result)=>{
+                this.setState({
+                    isLoggedIn: false,
+                    loggedInUser: false
+                });
+                Alert.alert('User logged out');
+            });
+        }
+        else{
+            this.props.navigation.navigate('LoginRT');
+        }
+    }
+
+    componentDidMount() {
+        AsyncStorage.getItem('userLoggedIn', (err, result)=>{
+            if(result === 'none'){
+                console.log('NONE');
+            }
+            else if (result === null){
+                AsyncStorage.setItem('userLoggedIn', 'none', (err, result)=>{
+                    console.log('Set user to NONE');
+                });
+            }
+            else {
+                this.setState({
+                    isLoggedIn: true,
+                    loggedInUser: result
+                });
+            }
         });
     }
+
     render(){
-        let display = this.state.isLoggedIn ? 'Sample User' : this.props.message;
+        let display = this.state.isLoggedIn ? this.state.loggedInUser : this.props.message;
         return (
             <View style = {styles.headStyle}>
                 <Image style = {styles.logoStyle} source = {require('./img/Globo_logo_REV.png')} />

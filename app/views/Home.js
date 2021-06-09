@@ -3,7 +3,6 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Header} from '../sections/Header';
 import {Hero} from '../sections/Hero';
 import {Menu} from '../sections/Menu';
-import {StackNavigator} from 'react-navigation';
 
 export default class Home extends React.Component {
 
@@ -19,9 +18,9 @@ export default class Home extends React.Component {
         const navigation = this.props.navigation;
         return (
             <View style = {styles.container}>
-                <Header message = 'Press Login' />
+                <Header navigation = {navigation} message = 'Press Login' />
                 <Hero />
-                <Menu navigation={this.props.navigation} />   
+                <Menu navigation={navigation} />   
             </View>
         );
     }

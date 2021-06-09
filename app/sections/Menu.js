@@ -4,6 +4,7 @@ import {StyleSheet, View, TouchableOpacity, Text, Alert} from 'react-native';
 export class Menu extends React.Component{
 
     onPress = () => {
+    
         Alert.alert('TouchableOpacity button touched');
     }
 
@@ -11,16 +12,16 @@ export class Menu extends React.Component{
         return (
             <View style = {styles.container}>
                 <View style = {styles.buttonRow}>
-                    <TouchableOpacity style = {styles.buttonStyles} onPress = {this.onPress}>
+                    <TouchableOpacity style = {styles.buttonStyles} onPress = {()=>{this.props.navigation.navigate('LessonsRT')}}>
                         <Text style = {styles.buttonText}>LESSONS</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style = {styles.buttonStyles} onPress = {this.onPress}>
+                    <TouchableOpacity style = {styles.buttonStyles} onPress = {()=>{this.props.navigation.navigate('RegisterRT')}}>
                         <Text style = {styles.buttonText}>REGISTER</Text>
                     </TouchableOpacity>
                 </View>
 
                 <View style = {styles.buttonRow}>
-                    <TouchableOpacity style = {styles.buttonStyles} onPress = {this.onPress}>
+                    <TouchableOpacity style = {styles.buttonStyles} onPress = {()=>this.props.navigation.navigate('BlogRT')}>
                         <Text style = {styles.buttonText}>BLOG</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style = {styles.buttonStyles} onPress = {()=>this.props.navigation.navigate('ContactRT')}>
@@ -29,7 +30,7 @@ export class Menu extends React.Component{
                 </View>
 
                 <View style = {styles.buttonRow}>
-                    <TouchableOpacity style = {styles.buttonStyles} onPress = {this.onPress}>
+                    <TouchableOpacity style = {styles.buttonStyles} onPress = {()=>this.props.navigation.navigate('QuizRT')}>
                         <Text style = {styles.buttonText}>QUIZ</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style = {styles.buttonStyles} onPress = {this.onPress}>
